@@ -233,11 +233,26 @@ export default function App() {
 
     const res = await gameService.verifyQr(session.gameId, qrCode, session);
 
-    if (res.matched && res.questions) {
-      setCurrentStationQuestions(res.questions);
+    if (res.matched) {
       const currentLocId = session.route[session.currentPosIndex];
-      const posProg = session.posProgress[currentLocId];
-      setCurrentQuestionIndex(posProg?.solvedQuestions.length || 0);
+      const updatedSession: GameSession = res.session || {
+        ...session,
+        posProgress: {
+          ...session.posProgress,
+          [currentLocId]: {
+            ...session.posProgress[currentLocId],
+            qrVerified: true,
+          },
+        },
+      };
+      setSession(updatedSession);
+      gameService.saveSession(updatedSession);
+
+      if (res.questions) {
+        setCurrentStationQuestions(res.questions);
+        const posProg = updatedSession.posProgress[currentLocId];
+        setCurrentQuestionIndex(posProg?.solvedQuestions?.length || 0);
+      }
 
       if (res.story) {
         setCurrentStation((prev) => (prev ? { ...prev, story: res.story } : null));
@@ -256,7 +271,7 @@ export default function App() {
     const currentQ = currentStationQuestions[currentQuestionIndex];
     const res = await gameService.submitAnswer(session.gameId, currentQ.id, answer, session);
 
-    // Keep session state updated immediately (score or failed lock)
+    // Keep session state updated immediately (score, progress, or failed lock)
     if (res.posFailed) {
       const currentLocId = session.route[session.currentPosIndex];
       const updatedSession: GameSession = {
@@ -275,11 +290,23 @@ export default function App() {
       };
       setSession(updatedSession);
       gameService.saveSession(updatedSession);
-    } else if (res.isCorrect && res.score !== undefined) {
-      setSession({
+    } else if (res.isCorrect) {
+      const currentLocId = session.route[session.currentPosIndex];
+      const updatedSession: GameSession = res.session || {
         ...session,
-        score: res.score,
-      });
+        score: res.score !== undefined ? res.score : session.score,
+        posProgress: {
+          ...session.posProgress,
+          [currentLocId]: {
+            ...session.posProgress[currentLocId],
+            solvedQuestions: Array.from(
+              new Set([...(session.posProgress[currentLocId]?.solvedQuestions || []), currentQ.id])
+            ),
+          },
+        },
+      };
+      setSession(updatedSession);
+      gameService.saveSession(updatedSession);
     }
 
     return res;
@@ -336,6 +363,37 @@ export default function App() {
       });
       setCurrentStationQuestions([]);
       setCurrentQuestionIndex(0);
+
+      // CRITICAL FIX: Advance session.currentPosIndex and mark completed in session state!
+      if (session) {
+        const nextIndex = res.nextStation.posNumber - 1;
+        const justFinishedLocId = session.route[session.currentPosIndex];
+        const nextLocId = res.nextStation.id;
+
+        const updatedSession: GameSession = res.session || {
+          ...session,
+          currentPosIndex: nextIndex,
+          score: res.score !== undefined ? res.score : session.score,
+          posProgress: {
+            ...session.posProgress,
+            [justFinishedLocId]: {
+              ...session.posProgress[justFinishedLocId],
+              completed: true,
+            },
+            [nextLocId]: session.posProgress[nextLocId] || {
+              locationId: nextLocId,
+              qrVerified: false,
+              completed: false,
+              currentQuestionIndex: 0,
+              questionAttempts: {},
+              solvedQuestions: [],
+            },
+          },
+        };
+
+        setSession(updatedSession);
+        gameService.saveSession(updatedSession);
+      }
 
       // If next is Final, queue the Final Intro Modal
       if (isNextFinal) {

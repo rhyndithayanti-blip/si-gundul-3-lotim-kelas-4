@@ -313,6 +313,7 @@ async function startServer() {
         story: targetLoc?.story,
         questions: stationQuestions,
         currentPosIndex: session.currentPosIndex,
+        session,
       });
     }
 
@@ -387,6 +388,7 @@ async function startServer() {
             allCompleted: true,
             needsRetelling: true, // triggers story retelling view!
             score: session.score,
+            session,
             treasureCode: settings.treasureCode,
             teacherMessage: settings.teacherMessage,
           });
@@ -405,6 +407,7 @@ async function startServer() {
           posCompleted: true,
           allCompleted: false,
           score: session.score,
+          session,
           nextStation: {
             posNumber: nextIndex + 1,
             totalPos: session.route.length,
@@ -425,6 +428,7 @@ async function startServer() {
         attemptsUsed: currentAttempts,
         posCompleted: false,
         score: session.score,
+        session,
       });
     }
 

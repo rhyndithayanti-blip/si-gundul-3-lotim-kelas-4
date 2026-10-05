@@ -221,23 +221,6 @@ export const QuestionView: React.FC<Props> = ({
     }
   };
 
-  const getCategoryBadge = () => {
-    switch (question.literacyCategory) {
-      case 'menemukan_informasi':
-        return { label: '🔍 Informasi Penting IPAS', color: 'bg-blue-100 text-blue-900 border-blue-200' };
-      case 'ide_pokok':
-        return { label: '💡 Konsep Utama IPAS', color: 'bg-amber-100 text-amber-900 border-amber-200' };
-      case 'makna_kosakata':
-        return { label: '📖 Istilah Geografi & Sains', color: 'bg-emerald-100 text-emerald-900 border-emerald-200' };
-      case 'evaluasi_amanat':
-        return { label: '🌿 Analisis Bentang Alam & Adaptasi', color: 'bg-purple-100 text-purple-900 border-purple-200' };
-      default:
-        return { label: '📝 Pemahaman Materi IPAS', color: 'bg-amber-100 text-amber-900 border-amber-200' };
-    }
-  };
-
-  const catBadge = getCategoryBadge();
-
   // ============================================================================
   // JIKA KELOMPOK SUDAH GAGAL DALAM POS INI -> TERKUNCI (HANYA GURU BISA RESET)
   // ============================================================================
@@ -316,7 +299,7 @@ export const QuestionView: React.FC<Props> = ({
           </div>
 
           <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto font-medium leading-relaxed">
-            Pastikan semua poin penting (pengertian, ciri-ciri, dan contoh tumbuhan) sudah kamu tulis di <strong>buku catatan manualmu</strong> sebelum lanjut menjawab soal.
+            Pastikan semua poin penting (pengertian, ciri-ciri, dan contoh materi IPAS) sudah kamu tulis di <strong>buku catatan manualmu</strong> sebelum lanjut menjawab soal.
           </p>
 
           <button
@@ -380,7 +363,7 @@ export const QuestionView: React.FC<Props> = ({
   // ============================================================================
   return (
     <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4 animate-in fade-in duration-200">
-      {/* Sticky Top Bar Navigation & Station Title for Smartphone */}
+      {/* Sticky Top Bar Navigation for Smartphone */}
       <div className="sticky top-[53px] sm:static z-20 bg-white/95 backdrop-blur-md rounded-2xl border-2 border-amber-300 p-3 sm:p-4 shadow-md flex items-center justify-between gap-2.5">
         <div className="flex items-center gap-2.5 min-w-0">
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-amber-600 text-white font-black text-xs sm:text-sm flex items-center justify-center shadow-xs shrink-0">
@@ -391,7 +374,7 @@ export const QuestionView: React.FC<Props> = ({
               {stationCode}
             </div>
             <div className="text-xs sm:text-sm font-bold text-slate-800 leading-tight">
-              Soal Materi {questionIndex + 1} dari {totalQuestions}
+              Soal {questionIndex + 1} dari {totalQuestions}
             </div>
           </div>
         </div>
@@ -405,31 +388,31 @@ export const QuestionView: React.FC<Props> = ({
 
       {/* Question Card */}
       <div className="bg-white rounded-2xl sm:rounded-3xl border-2 border-amber-300 p-4 sm:p-6 shadow-md space-y-4 sm:space-y-5">
-        {/* Category & Manual Notebook Reminder */}
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className={`text-[11px] font-black uppercase px-2.5 py-1 rounded-full border ${catBadge.color}`}>
-            {catBadge.label}
+        {/* Card Header: Nomor Soal & Pengingat Catatan Manual (Tanpa Judul Kategori) */}
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-xs font-black text-amber-900 bg-amber-100/80 border border-amber-300 px-3 py-1 rounded-full">
+            Soal {questionIndex + 1} dari {totalQuestions}
           </span>
 
           <span className="text-[11px] font-bold text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full flex items-center gap-1">
             <BookOpen className="w-3.5 h-3.5 text-amber-700" />
-            <span>Lihat Buku Catatanmu</span>
+            <span>Buku Catatan Siswa</span>
           </span>
         </div>
 
-        {/* Question Text */}
-        <div className="space-y-1">
-          <h4 className="text-base sm:text-lg font-black text-slate-800 leading-snug">
+        {/* Question Text (Langsung Isi Pertanyaan Tanpa Judul) */}
+        <div className="space-y-1.5">
+          <p className="text-base sm:text-lg font-black text-slate-800 leading-relaxed">
             {question.question}
-          </h4>
+          </p>
           <p className="text-xs text-slate-500">
             {hasOptions
-              ? 'Pilihlah satu jawaban yang paling tepat berdasarkan gambar dan catatan di buku tulismu.'
-              : 'Ketikkan jawaban singkatmu pada kotak yang tersedia.'}
+              ? 'Pilihlah salah satu jawaban yang paling tepat:'
+              : 'Ketikkan jawaban singkatmu pada kotak yang tersedia:'}
           </p>
         </div>
 
-        {/* Question Image (Gambar Sesuai Soal) */}
+        {/* Question Image (Gambar Sesuai Soal - Tanpa Judul/Caption) */}
         {question.imageUrl && (
           <div className="rounded-2xl border-2 border-amber-300 overflow-hidden bg-white shadow-xs">
             <div
@@ -441,24 +424,14 @@ export const QuestionView: React.FC<Props> = ({
             >
               <img
                 src={question.imageUrl}
-                alt={question.imageCaption || question.question}
+                alt="Gambar Soal"
                 className="w-full h-auto max-h-60 sm:max-h-68 object-contain rounded-xl transition-transform duration-200 group-hover:scale-[1.01]"
               />
-              <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-xs text-white text-[10px] sm:text-xs font-bold flex items-center gap-1 shadow-sm">
-                <ImageIcon className="w-3.5 h-3.5 text-yellow-300" />
-                <span>Gambar Soal {questionIndex + 1}</span>
-              </div>
               <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-xs text-yellow-300 text-[10px] sm:text-xs font-bold flex items-center gap-1 shadow-sm">
                 <ZoomIn className="w-3.5 h-3.5" />
                 <span>Ketuk Perbesar</span>
               </div>
             </div>
-            {question.imageCaption && (
-              <div className="px-3.5 py-2 bg-amber-50/90 border-t border-amber-200 text-[11px] sm:text-xs text-amber-950 font-semibold flex items-center gap-1.5">
-                <span className="shrink-0">📷</span>
-                <span>{question.imageCaption}</span>
-              </div>
-            )}
           </div>
         )}
 
@@ -629,16 +602,10 @@ export const QuestionView: React.FC<Props> = ({
             <div className="rounded-2xl overflow-hidden border-2 border-yellow-400 shadow-2xl bg-black">
               <img
                 src={question.imageUrl}
-                alt={question.imageCaption || question.question}
-                className="w-full max-h-[75dvh] object-contain mx-auto"
+                alt="Gambar Soal"
+                className="w-full max-h-[80dvh] object-contain mx-auto"
               />
             </div>
-
-            {question.imageCaption && (
-              <p className="text-xs sm:text-sm text-amber-100 text-center font-medium bg-white/10 p-3 rounded-xl">
-                {question.imageCaption}
-              </p>
-            )}
           </div>
         </div>
       )}

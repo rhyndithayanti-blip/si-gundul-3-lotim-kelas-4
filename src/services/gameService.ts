@@ -337,6 +337,7 @@ class GameService {
     stationName?: string;
     story?: any;
     questions?: ClientQuestion[];
+    session?: GameSession;
   }> {
     try {
       const res = await fetch(`/api/game/${gameId}/verify-qr`, {
@@ -421,6 +422,7 @@ class GameService {
     allCompleted?: boolean;
     needsRetelling?: boolean;
     score?: number;
+    session?: GameSession;
     nextStation?: any;
     treasureCode?: string;
     teacherMessage?: string;
@@ -509,6 +511,7 @@ class GameService {
             allCompleted: true,
             needsRetelling: true,
             score: currentSession.score,
+            session: currentSession,
             treasureCode: settings.treasureCode,
             teacherMessage: settings.teacherMessage,
           };
@@ -527,6 +530,7 @@ class GameService {
           posCompleted: true,
           allCompleted: false,
           score: currentSession.score,
+          session: currentSession,
           nextStation: {
             posNumber: nextIndex + 1,
             totalPos: currentSession.route.length,
@@ -548,6 +552,7 @@ class GameService {
         attemptsUsed: currentAttempts,
         posCompleted: false,
         score: currentSession.score,
+        session: currentSession,
       };
     }
 
