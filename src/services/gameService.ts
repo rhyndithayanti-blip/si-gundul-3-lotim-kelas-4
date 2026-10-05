@@ -14,11 +14,11 @@ import {
   DEFAULT_QUESTIONS,
 } from '../data/defaultData';
 
-const LOCAL_SESSION_KEY = 'sigundul_ipas_v11_session';
-const LOCAL_SETTINGS_KEY = 'sigundul_ipas_v11_settings';
-const LOCAL_LOCATIONS_KEY = 'sigundul_ipas_v11_locations';
-const LOCAL_QUESTIONS_KEY = 'sigundul_ipas_v11_questions';
-const LOCAL_LEADERBOARD_KEY = 'sigundul_ipas_v11_leaderboard';
+const LOCAL_SESSION_KEY = 'sigundul_ipas_v12_session';
+const LOCAL_SETTINGS_KEY = 'sigundul_ipas_v12_settings';
+const LOCAL_LOCATIONS_KEY = 'sigundul_ipas_v12_locations';
+const LOCAL_QUESTIONS_KEY = 'sigundul_ipas_v12_questions';
+const LOCAL_LEADERBOARD_KEY = 'sigundul_ipas_v12_leaderboard';
 
 // Helper to shuffle array
 function shuffleArray<T>(array: T[]): T[] {

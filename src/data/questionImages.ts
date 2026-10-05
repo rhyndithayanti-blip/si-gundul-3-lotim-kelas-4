@@ -1,5 +1,6 @@
 /**
  * High-quality educational vector illustrations for Grade 4 IPAS questions
+ * Clean illustrations WITHOUT any text, titles, or spoilers.
  * Covering:
  * - Bentang Alam (Daratan & Perairan)
  * - Kenampakan Alam vs Kenampakan Buatan
@@ -36,7 +37,7 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <polygon points="50,220 180,90 310,220" fill="#93c5fd" opacity="0.7"/>
       <polygon points="180,90 195,115 165,115" fill="#ffffff"/>
       <polygon points="260,230 380,110 500,230" fill="#60a5fa" opacity="0.6"/>
-      <!-- Highland Plateau (Dataran Tinggi > 500 mdpl) -->
+      <!-- Highland Plateau (Dataran Tinggi) -->
       <path d="M 0 260 L 80 190 L 480 190 L 600 250 L 600 360 L 0 360 Z" fill="url(#plateau)"/>
       <!-- Tea Plant Rows / Undakan Kebun Teh -->
       <path d="M 90 205 Q 280 200 470 205" stroke="#166534" stroke-width="6" stroke-linecap="round" fill="none"/>
@@ -45,12 +46,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <path d="M 30 275 Q 280 265 530 275" stroke="#14532d" stroke-width="9" stroke-linecap="round" fill="none"/>
       <!-- Cool Mist Overlay -->
       <ellipse cx="280" cy="185" rx="200" ry="12" fill="#ffffff" opacity="0.45"/>
-      <!-- Altitude Tag / Banner -->
-      <rect x="25" y="20" width="220" height="42" rx="12" fill="#0f172a" opacity="0.85"/>
-      <text x="38" y="46" font-family="sans-serif" font-size="14" font-weight="bold" fill="#38bdf8">Ketinggian: > 500 mdpl</text>
-      <!-- Label -->
-      <rect x="180" y="300" width="240" height="45" rx="14" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
-      <text x="300" y="328" font-family="sans-serif" font-size="16" font-weight="900" fill="#14532d" text-anchor="middle">DATARAN TINGGI (PLATO)</text>
     </svg>
   `),
 
@@ -81,12 +76,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <!-- Two Mountain Arrows pointing to the Valley -->
       <line x1="170" y1="130" x2="260" y2="210" stroke="#f59e0b" stroke-width="4" stroke-dasharray="6,4"/>
       <line x1="430" y1="120" x2="340" y2="210" stroke="#f59e0b" stroke-width="4" stroke-dasharray="6,4"/>
-      <!-- Label -->
-      <rect x="200" y="25" width="200" height="42" rx="12" fill="#0f172a" opacity="0.85"/>
-      <text x="300" y="52" font-family="sans-serif" font-size="16" font-weight="900" fill="#facc15" text-anchor="middle">LEMBAH (NGARAI)</text>
-      <!-- Bottom Explanatory Pill -->
-      <rect x="150" y="305" width="300" height="38" rx="10" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-      <text x="300" y="330" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Daratan Rendah di Antara 2 Bukit/Gunung</text>
     </svg>
   `),
 
@@ -116,11 +105,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <polygon points="460,360 550,190 640,360" fill="#166534"/>
       <!-- Connecting Ridge Line Highlight -->
       <path d="M 80 180 L 160 230 L 250 170 L 320 225 L 410 160 L 480 230 L 550 190" stroke="#facc15" stroke-width="4" stroke-dasharray="8,5" fill="none"/>
-      <!-- Label -->
-      <rect x="170" y="20" width="260" height="45" rx="14" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="49" font-family="sans-serif" font-size="16" font-weight="900" fill="#38bdf8" text-anchor="middle">DERETAN PEGUNUNGAN</text>
-      <rect x="140" y="300" width="320" height="40" rx="12" fill="#ffffff" stroke="#ca8a04" stroke-width="2"/>
-      <text x="300" y="326" font-family="sans-serif" font-size="13" font-weight="bold" fill="#78350f" text-anchor="middle">Rangkaian Beberapa Gunung yang Bersambung</text>
     </svg>
   `),
 
@@ -153,9 +137,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <!-- Right City Building -->
       <rect x="440" y="260" width="50" height="70" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
       <rect x="510" y="240" width="60" height="90" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
-      <!-- Label -->
-      <rect x="180" y="20" width="240" height="45" rx="12" fill="#0f172a" opacity="0.88"/>
-      <text x="300" y="48" font-family="sans-serif" font-size="16" font-weight="900" fill="#4ade80" text-anchor="middle">DATARAN RENDAH (0-200 mdpl)</text>
     </svg>
   `),
 
@@ -181,14 +162,9 @@ export const QUESTION_IMAGES: Record<string, string> = {
         <line x1="25" y1="15" x2="25" y2="0" stroke="#0f172a" stroke-width="2"/>
         <polygon points="25,2 45,8 25,14" fill="#ef4444"/>
       </g>
-      <!-- Big Arrow showing sea entering land -->
+      <!-- Arrow showing sea entering land -->
       <path d="M 300 40 L 300 130" stroke="#facc15" stroke-width="6" stroke-linecap="round"/>
       <polygon points="290,130 310,130 300,150" fill="#facc15"/>
-      <!-- Label -->
-      <rect x="210" y="20" width="180" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="47" font-family="sans-serif" font-size="16" font-weight="900" fill="#facc15" text-anchor="middle">TELUK (BAY)</text>
-      <rect x="120" y="295" width="360" height="38" rx="10" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-      <text x="300" y="320" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0c4a6e" text-anchor="middle">Lautan yang Menjorok Masuk ke Daratan</text>
     </svg>
   `),
 
@@ -202,9 +178,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <!-- Island B (Right Landmass) -->
       <path d="M 410 0 Q 450 180 400 360 L 600 360 L 600 0 Z" fill="#16a34a"/>
       <path d="M 410 0 Q 450 180 400 360" stroke="#fef08a" stroke-width="8" fill="none"/>
-      <!-- Strait (Selat) Narrow Sea Channel -->
-      <text x="90" y="190" font-family="sans-serif" font-size="20" font-weight="900" fill="#ffffff">PULAU A</text>
-      <text x="510" y="190" font-family="sans-serif" font-size="20" font-weight="900" fill="#ffffff">PULAU B</text>
       <!-- Ferry crossing the strait -->
       <g transform="translate(250, 160)">
         <polygon points="0,20 100,20 85,40 15,40" fill="#f8fafc" stroke="#1e293b" stroke-width="3"/>
@@ -215,11 +188,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <line x1="220" y1="230" x2="380" y2="230" stroke="#facc15" stroke-width="5" stroke-dasharray="8,4"/>
       <polygon points="220,230 235,222 235,238" fill="#facc15"/>
       <polygon points="380,230 365,222 365,238" fill="#facc15"/>
-      <!-- Label -->
-      <rect x="210" y="20" width="180" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="47" font-family="sans-serif" font-size="16" font-weight="900" fill="#38bdf8" text-anchor="middle">SELAT (STRAIT)</text>
-      <rect x="130" y="300" width="340" height="38" rx="10" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-      <text x="300" y="325" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Laut Sempit Pemisah Dua Pulau</text>
     </svg>
   `),
 
@@ -247,11 +215,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <path d="M 270 270 Q 300 265 330 270" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" fill="none"/>
       <!-- Small Boat on Lake -->
       <polygon points="280,240 310,240 305,248 285,248" fill="#f59e0b"/>
-      <!-- Label -->
-      <rect x="220" y="20" width="160" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="47" font-family="sans-serif" font-size="16" font-weight="900" fill="#38bdf8" text-anchor="middle">DANAU (LAKE)</text>
-      <rect x="120" y="305" width="360" height="38" rx="10" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-      <text x="300" y="329" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Genangan Air Luas Dikelilingi Daratan</text>
     </svg>
   `),
 
@@ -268,14 +231,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <!-- Winding River flowing from Mountain to Sea -->
       <path d="M 200 65 Q 230 110 200 150 Q 150 190 260 230 Q 380 270 300 320" stroke="#38bdf8" stroke-width="28" fill="none" stroke-linecap="round"/>
       <path d="M 200 65 Q 230 110 200 150 Q 150 190 260 230 Q 380 270 300 320" stroke="#0284c7" stroke-width="18" fill="none" stroke-linecap="round"/>
-      <!-- Flow Direction Arrows -->
-      <text x="215" y="115" font-family="sans-serif" font-size="12" font-weight="900" fill="#ffffff">HULU ➔</text>
-      <text x="325" y="275" font-family="sans-serif" font-size="12" font-weight="900" fill="#ffffff">HILIR ➔</text>
-      <!-- Label -->
-      <rect x="190" y="15" width="220" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="42" font-family="sans-serif" font-size="16" font-weight="900" fill="#38bdf8" text-anchor="middle">ALIRAN SUNGAI</text>
-      <rect x="140" y="305" width="320" height="38" rx="10" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-      <text x="300" y="329" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Mengalir dari Hulu Tinggi Menuju Laut</text>
     </svg>
   `),
 
@@ -299,37 +254,28 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <!-- Electric Power Lines (PLTA) -->
       <polygon points="530,220 545,150 560,220" stroke="#f59e0b" stroke-width="3" fill="none"/>
       <line x1="535" y1="180" x2="555" y2="180" stroke="#f59e0b" stroke-width="3"/>
-      <!-- Label -->
-      <rect x="140" y="20" width="320" height="45" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="49" font-family="sans-serif" font-size="16" font-weight="900" fill="#facc15" text-anchor="middle">WADUK / BENDUNGAN (PLTA)</text>
-      <rect x="130" y="300" width="340" height="40" rx="10" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-      <text x="300" y="326" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Kenampakan Buatan Penampung Air Sungai</text>
     </svg>
   `),
 
   q_pos_3_2: svgToDataUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="100%" height="100%">
       <rect width="600" height="360" fill="#f8fafc"/>
-      <!-- Left: Kenampakan Alam (Natural) -->
-      <rect x="20" y="70" width="265" height="230" rx="16" fill="#ecfdf5" stroke="#10b981" stroke-width="3"/>
-      <text x="152" y="105" font-family="sans-serif" font-size="16" font-weight="900" fill="#047857" text-anchor="middle">KENAMPAKAN ALAM</text>
+      <!-- Left Card: Nature (Mountain & Lake) -->
+      <rect x="30" y="40" width="250" height="280" rx="20" fill="#ecfdf5" stroke="#10b981" stroke-width="3"/>
       <!-- Mountain and Lake in Left Card -->
-      <polygon points="60,240 140,140 220,240" fill="#059669"/>
-      <ellipse cx="150" cy="265" rx="70" ry="20" fill="#38bdf8"/>
-      <text x="152" y="225" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Gunung &amp; Danau</text>
-      <!-- Right: Kenampakan Buatan (Man-made) -->
-      <rect x="315" y="70" width="265" height="230" rx="16" fill="#fffbeb" stroke="#f59e0b" stroke-width="3"/>
-      <text x="447" y="105" font-family="sans-serif" font-size="16" font-weight="900" fill="#b45309" text-anchor="middle">KENAMPAKAN BUATAN</text>
+      <polygon points="60,230 155,100 250,230" fill="#059669"/>
+      <polygon points="155,100 170,125 140,125" fill="#ffffff"/>
+      <ellipse cx="155" cy="270" rx="85" ry="26" fill="#38bdf8"/>
+      <!-- Right Card: Man-made (Bridge & Dam) -->
+      <rect x="320" y="40" width="250" height="280" rx="20" fill="#fffbeb" stroke="#f59e0b" stroke-width="3"/>
       <!-- Dam, Bridge, and Road in Right Card -->
-      <rect x="350" y="150" width="190" height="40" rx="6" fill="#64748b"/>
-      <line x1="370" y1="190" x2="370" y2="240" stroke="#475569" stroke-width="6"/>
-      <line x1="520" y1="190" x2="520" y2="240" stroke="#475569" stroke-width="6"/>
-      <text x="447" y="175" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Jembatan Beton</text>
-      <rect x="350" y="250" width="190" height="35" rx="6" fill="#f97316"/>
-      <text x="447" y="272" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Waduk &amp; Pelabuhan</text>
-      <!-- Title -->
-      <rect x="130" y="15" width="340" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="42" font-family="sans-serif" font-size="16" font-weight="900" fill="#38bdf8" text-anchor="middle">ALAM VS BUATAN MANUSIA</text>
+      <rect x="350" y="90" width="190" height="45" rx="8" fill="#64748b"/>
+      <line x1="375" y1="135" x2="375" y2="200" stroke="#475569" stroke-width="6"/>
+      <line x1="515" y1="135" x2="515" y2="200" stroke="#475569" stroke-width="6"/>
+      <rect x="350" y="220" width="190" height="75" rx="8" fill="#f97316"/>
+      <circle cx="390" cy="255" r="16" fill="#ffffff" opacity="0.8"/>
+      <circle cx="445" cy="255" r="16" fill="#ffffff" opacity="0.8"/>
+      <circle cx="500" cy="255" r="16" fill="#ffffff" opacity="0.8"/>
     </svg>
   `),
 
@@ -355,11 +301,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <!-- Lighthouse (Mercusuar) -->
       <polygon points="40,210 60,110 80,210" fill="#ef4444"/>
       <circle cx="70" cy="100" r="10" fill="#fef08a"/>
-      <!-- Label -->
-      <rect x="180" y="20" width="240" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="47" font-family="sans-serif" font-size="16" font-weight="900" fill="#facc15" text-anchor="middle">PELABUHAN LAUT</text>
-      <rect x="140" y="305" width="320" height="38" rx="10" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-      <text x="300" y="329" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Tempat Bersandarnya Kapal di Pesisir</text>
     </svg>
   `),
 
@@ -383,11 +324,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <ellipse cx="200" cy="155" rx="60" ry="8" fill="#bae6fd" opacity="0.6"/>
       <ellipse cx="400" cy="215" rx="70" ry="10" fill="#bae6fd" opacity="0.6"/>
       <ellipse cx="250" cy="275" rx="80" ry="12" fill="#bae6fd" opacity="0.6"/>
-      <!-- Label -->
-      <rect x="140" y="20" width="320" height="45" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="49" font-family="sans-serif" font-size="16" font-weight="900" fill="#86efac" text-anchor="middle">SAWAH TERASERING (BERUNDAK)</text>
-      <rect x="120" y="305" width="360" height="38" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
-      <text x="300" y="329" font-family="sans-serif" font-size="13" font-weight="bold" fill="#14532d" text-anchor="middle">Ciptaan Petani untuk Mencegah Longsor Lereng</text>
     </svg>
   `),
 
@@ -403,7 +339,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <rect x="40" y="280" width="100" height="60" fill="#e0f2fe" stroke="#ca8a04" stroke-width="2"/>
       <rect x="160" y="280" width="100" height="60" fill="#ffffff" stroke="#ca8a04" stroke-width="2"/>
       <polygon points="210,290 230,320 190,320" fill="#f8fafc" stroke="#94a3b8"/>
-      <text x="210" y="335" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0f172a" text-anchor="middle">Gundukan Garam</text>
       <!-- Fisherman in boat with Fishing Net -->
       <g transform="translate(360, 180)">
         <polygon points="0,25 90,25 75,45 15,45" fill="#ea580c"/>
@@ -412,9 +347,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
         <!-- Net thrown into sea -->
         <path d="M 85 30 Q 150 40 160 80 Q 120 100 80 80 Z" fill="#93c5fd" opacity="0.5" stroke="#ffffff" stroke-dasharray="4,4"/>
       </g>
-      <!-- Label -->
-      <rect x="130" y="20" width="340" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="47" font-family="sans-serif" font-size="15" font-weight="900" fill="#facc15" text-anchor="middle">NELAYAN &amp; PETANI GARAM DI PESISIR</text>
     </svg>
   `),
 
@@ -437,9 +369,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
         <!-- Basket on Back -->
         <rect x="10" y="35" width="18" height="30" fill="#ca8a04" stroke="#78350f" stroke-width="2"/>
       </g>
-      <!-- Label -->
-      <rect x="130" y="20" width="340" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="47" font-family="sans-serif" font-size="15" font-weight="900" fill="#86efac" text-anchor="middle">PETANI TEH DI DATARAN TINGGI SEJUK</text>
     </svg>
   `),
 
@@ -461,10 +390,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <rect x="530" y="130" width="50" height="90" fill="#94a3b8" stroke="#334155" stroke-width="2"/>
       <!-- Rice Paddy on left -->
       <rect x="160" y="160" width="260" height="60" rx="8" fill="#eab308" stroke="#a16207" stroke-width="2"/>
-      <text x="290" y="195" font-family="sans-serif" font-size="14" font-weight="900" fill="#713f12" text-anchor="middle">Sawah Padi Subur</text>
-      <!-- Label -->
-      <rect x="130" y="20" width="340" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="47" font-family="sans-serif" font-size="15" font-weight="900" fill="#facc15" text-anchor="middle">PUSAT INDUSTRI &amp; SAWAH DATARAN RENDAH</text>
     </svg>
   `),
 
@@ -492,9 +417,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <circle cx="230" cy="235" r="10" fill="#fed7aa"/>
       <rect x="220" y="245" width="20" height="25" fill="#ec4899"/>
       <line x1="235" y1="230" x2="242" y2="220" stroke="#facc15" stroke-width="3"/>
-      <!-- Label -->
-      <rect x="150" y="20" width="300" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="47" font-family="sans-serif" font-size="16" font-weight="900" fill="#38bdf8" text-anchor="middle">PARIWISATA BAHARI PANTAI</text>
     </svg>
   `),
 
@@ -517,13 +439,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <rect x="370" y="95" width="40" height="40" fill="#fef08a" stroke="#78350f" stroke-width="3"/>
       <!-- Roof (Atap Rumah Tradisional) -->
       <polygon points="120,80 300,10 480,80" fill="#991b1b"/>
-      <!-- High Water Line indicator -->
-      <text x="50" y="280" font-family="sans-serif" font-size="12" font-weight="900" fill="#0369a1">Permukaan Air Pasang ➔</text>
-      <!-- Label -->
-      <rect x="130" y="15" width="340" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="42" font-family="sans-serif" font-size="15" font-weight="900" fill="#facc15" text-anchor="middle">RUMAH PANGGUNG (ADAPTASI BANJIR)</text>
-      <rect x="120" y="315" width="360" height="35" rx="10" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-      <text x="300" y="338" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0c4a6e" text-anchor="middle">Aman dari Luapan Sungai &amp; Hewan Liar</text>
     </svg>
   `),
 
@@ -551,11 +466,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <line x1="290" y1="170" x2="290" y2="240" stroke="#78350f" stroke-width="7"/>
       <line x1="290" y1="220" x2="250" y2="290" stroke="#78350f" stroke-width="5"/>
       <line x1="290" y1="220" x2="330" y2="290" stroke="#78350f" stroke-width="5"/>
-      <!-- Label -->
-      <rect x="140" y="20" width="320" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="47" font-family="sans-serif" font-size="15" font-weight="900" fill="#86efac" text-anchor="middle">HUTAN BAKAU (MENCEGAH ABRASI)</text>
-      <rect x="130" y="305" width="340" height="38" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
-      <text x="300" y="329" font-family="sans-serif" font-size="12" font-weight="bold" fill="#14532d" text-anchor="middle">Akar Bakau Menahan Hantaman Ombak Laut</text>
     </svg>
   `),
 
@@ -580,11 +490,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <!-- Water slows down on steps (Water arrows) -->
       <path d="M 410 170 Q 360 205 310 215" stroke="#38bdf8" stroke-width="4" fill="none"/>
       <path d="M 270 220 Q 230 255 190 265" stroke="#38bdf8" stroke-width="4" fill="none"/>
-      <!-- Label -->
-      <rect x="130" y="15" width="340" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="42" font-family="sans-serif" font-size="15" font-weight="900" fill="#facc15" text-anchor="middle">TERASERING (MENCEGAH LONGSOR)</text>
-      <rect x="110" y="305" width="380" height="38" rx="10" fill="#ffffff" stroke="#ca8a04" stroke-width="2"/>
-      <text x="300" y="329" font-family="sans-serif" font-size="12" font-weight="bold" fill="#713f12" text-anchor="middle">Menahan Laju Air &amp; Mengikat Tanah di Lereng</text>
     </svg>
   `),
 
@@ -613,12 +518,6 @@ export const QUESTION_IMAGES: Record<string, string> = {
       <!-- Ground Water Absorption Arrow -->
       <line x1="280" y1="280" x2="280" y2="330" stroke="#0284c7" stroke-width="4" stroke-linecap="round"/>
       <polygon points="275,330 285,330 280,340" fill="#0284c7"/>
-      <text x="360" y="335" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0369a1">Cadangan Air Tanah</text>
-      <!-- Label -->
-      <rect x="130" y="15" width="340" height="42" rx="12" fill="#0f172a" opacity="0.9"/>
-      <text x="300" y="42" font-family="sans-serif" font-size="15" font-weight="900" fill="#86efac" text-anchor="middle">REBOISASI HUTAN BUKIT GUNDUL</text>
-      <rect x="120" y="305" width="360" height="38" rx="10" fill="#ffffff" stroke="#15803d" stroke-width="2"/>
-      <text x="300" y="329" font-family="sans-serif" font-size="12" font-weight="bold" fill="#14532d" text-anchor="middle">Akar Pohon Menyerap Air &amp; Mengunci Tanah</text>
     </svg>
   `),
 };
