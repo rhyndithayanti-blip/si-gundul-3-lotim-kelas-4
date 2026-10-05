@@ -305,10 +305,10 @@ export default function App() {
         );
         setVictorySummary({
           summary: finalRes.summary,
-          treasureCode: finalRes.treasureCode || 'SIGUNDUL-ILMU-TUMBUHAN',
+          treasureCode: finalRes.treasureCode || 'JUARA-IPAS-KELAS4',
           teacherMessage:
             finalRes.teacherMessage ||
-            'Selamat! Kamu telah menyelesaikan seluruh 5 Pos Perkembangbiakan Tumbuhan! Serahkan buku catatanmu kepada Bapak/Ibu Guru.',
+            'Selamat! Kamu telah menyelesaikan seluruh 5 Pos Petualangan IPAS Kelas 4 tentang Bentang Alam dan Kehidupan Masyarakat! Serahkan buku catatanmu kepada Bapak/Ibu Wali Kelas 4.',
         });
         setView('victory');
         gameService.clearSession();

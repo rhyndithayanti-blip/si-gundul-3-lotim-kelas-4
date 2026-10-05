@@ -165,7 +165,6 @@ export const QuestionView: React.FC<Props> = ({
             res.attemptsUsed === 1
               ? `Luar biasa! Kamu menjawab benar pada percobaan pertama (+${res.pointsAwarded} Poin)!`
               : `Bagus! Kamu berhasil menjawab benar (+${res.pointsAwarded} Poin)!`,
-          explanation: res.explanation,
           points: res.pointsAwarded,
           posCompleted: res.posCompleted,
           allCompleted: res.allCompleted,
@@ -180,9 +179,8 @@ export const QuestionView: React.FC<Props> = ({
           status: 'wrong',
           title: canRetry ? '🤔 JAWABAN BELUM TEPAT' : `🚨 KELOMPOK GAGAL DI ${stationCode}!`,
           message: canRetry
-            ? `Coba periksa kembali catatan di buku tulismu! Sisa kesempatan: ${attemptsLeft} kali lagi.`
+            ? `Coba periksa kembali catatan materi di buku tulismu! Sisa kesempatan: ${attemptsLeft} kali lagi.`
             : `Kesempatan menjawab (${maxAttempts}x) telah habis. Kelompok dinyatakan GAGAL pada ${stationCode}. Untuk mereset dan mengulang aplikasi, hanya bisa dilakukan oleh Guru pada Panel Guru.`,
-          explanation: !canRetry ? res.explanation : undefined,
           canRetry,
           attemptsLeft,
           posCompleted: res.posCompleted,
@@ -226,15 +224,15 @@ export const QuestionView: React.FC<Props> = ({
   const getCategoryBadge = () => {
     switch (question.literacyCategory) {
       case 'menemukan_informasi':
-        return { label: '🔍 Informasi Penting Artikel', color: 'bg-blue-100 text-blue-900 border-blue-200' };
+        return { label: '🔍 Informasi Penting IPAS', color: 'bg-blue-100 text-blue-900 border-blue-200' };
       case 'ide_pokok':
-        return { label: '💡 Konsep Utama Tumbuhan', color: 'bg-amber-100 text-amber-900 border-amber-200' };
+        return { label: '💡 Konsep Utama IPAS', color: 'bg-amber-100 text-amber-900 border-amber-200' };
       case 'makna_kosakata':
-        return { label: '📖 Istilah Sains Tumbuhan', color: 'bg-emerald-100 text-emerald-900 border-emerald-200' };
+        return { label: '📖 Istilah Geografi & Sains', color: 'bg-emerald-100 text-emerald-900 border-emerald-200' };
       case 'evaluasi_amanat':
-        return { label: '🌿 Analisis & Penerapan', color: 'bg-purple-100 text-purple-900 border-purple-200' };
+        return { label: '🌿 Analisis Bentang Alam & Adaptasi', color: 'bg-purple-100 text-purple-900 border-purple-200' };
       default:
-        return { label: '📝 Pemahaman Materi', color: 'bg-amber-100 text-amber-900 border-amber-200' };
+        return { label: '📝 Pemahaman Materi IPAS', color: 'bg-amber-100 text-amber-900 border-amber-200' };
     }
   };
 
@@ -564,14 +562,6 @@ export const QuestionView: React.FC<Props> = ({
                 <p className="text-xs mt-0.5 leading-relaxed">{feedback.message}</p>
               </div>
             </div>
-
-            {/* Explanation box */}
-            {feedback.explanation && (
-              <div className="bg-white/80 p-3 rounded-xl border border-amber-200 text-xs">
-                <span className="font-bold text-amber-900">Pembahasan Materi: </span>
-                <span className="text-slate-700">{feedback.explanation}</span>
-              </div>
-            )}
 
             {/* Action inside feedback */}
             <div className="pt-2 flex items-center gap-2">

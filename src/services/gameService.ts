@@ -14,11 +14,11 @@ import {
   DEFAULT_QUESTIONS,
 } from '../data/defaultData';
 
-const LOCAL_SESSION_KEY = 'sigundul_ipas_v6_session';
-const LOCAL_SETTINGS_KEY = 'sigundul_ipas_v7_settings';
-const LOCAL_LOCATIONS_KEY = 'sigundul_ipas_v6_locations';
-const LOCAL_QUESTIONS_KEY = 'sigundul_ipas_v6_questions';
-const LOCAL_LEADERBOARD_KEY = 'sigundul_ipas_v6_leaderboard';
+const LOCAL_SESSION_KEY = 'sigundul_ipas_v11_session';
+const LOCAL_SETTINGS_KEY = 'sigundul_ipas_v11_settings';
+const LOCAL_LOCATIONS_KEY = 'sigundul_ipas_v11_locations';
+const LOCAL_QUESTIONS_KEY = 'sigundul_ipas_v11_questions';
+const LOCAL_LEADERBOARD_KEY = 'sigundul_ipas_v11_leaderboard';
 
 // Helper to shuffle array
 function shuffleArray<T>(array: T[]): T[] {
@@ -93,16 +93,34 @@ class GameService {
       const res = await fetch('/api/locations');
       if (res.ok) {
         const data = await res.json();
-        if (data.locations) {
-          localStorage.setItem(LOCAL_LOCATIONS_KEY, JSON.stringify(data.locations));
-          return data.locations;
+        if (data.locations && Array.isArray(data.locations) && data.locations.length >= 5) {
+          // Verify required IPAS stations are present
+          const hasKantin = data.locations.some((l: LocationConfig) => l.id === 'pos_1' && l.name?.toLowerCase().includes('kantin'));
+          const hasPadmasana = data.locations.some((l: LocationConfig) => l.id === 'pos_3' && l.name?.toLowerCase().includes('padmasana'));
+          if (hasKantin && hasPadmasana) {
+            localStorage.setItem(LOCAL_LOCATIONS_KEY, JSON.stringify(data.locations));
+            return data.locations;
+          }
         }
       }
     } catch {
       // fallback
     }
     const saved = localStorage.getItem(LOCAL_LOCATIONS_KEY);
-    return saved ? JSON.parse(saved) : DEFAULT_LOCATIONS;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        const hasKantin = parsed.some((l: LocationConfig) => l.id === 'pos_1' && l.name?.toLowerCase().includes('kantin'));
+        const hasPadmasana = parsed.some((l: LocationConfig) => l.id === 'pos_3' && l.name?.toLowerCase().includes('padmasana'));
+        if (hasKantin && hasPadmasana) {
+          return parsed;
+        }
+      } catch {
+        // ignore
+      }
+    }
+    localStorage.setItem(LOCAL_LOCATIONS_KEY, JSON.stringify(DEFAULT_LOCATIONS));
+    return DEFAULT_LOCATIONS;
   }
 
   // Update Locations
@@ -487,7 +505,6 @@ class GameService {
             isCorrect: true,
             pointsAwarded,
             attemptsUsed: currentAttempts,
-            explanation: q.explanation,
             posCompleted: true,
             allCompleted: true,
             needsRetelling: true,
@@ -507,7 +524,6 @@ class GameService {
           isCorrect: true,
           pointsAwarded,
           attemptsUsed: currentAttempts,
-          explanation: q.explanation,
           posCompleted: true,
           allCompleted: false,
           score: currentSession.score,
@@ -530,7 +546,6 @@ class GameService {
         isCorrect: true,
         pointsAwarded,
         attemptsUsed: currentAttempts,
-        explanation: q.explanation,
         posCompleted: false,
         score: currentSession.score,
       };
@@ -550,7 +565,6 @@ class GameService {
       isCorrect: false,
       pointsAwarded: 0,
       attemptsUsed: currentAttempts,
-      explanation: isOutOfAttempts ? q.explanation : undefined,
       posCompleted: false,
       posFailed: isOutOfAttempts,
       failedPosCode: currentSession.failedPosCode,

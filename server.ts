@@ -383,7 +383,6 @@ async function startServer() {
             isCorrect: true,
             pointsAwarded,
             attemptsUsed: currentAttempts,
-            explanation: q.explanation,
             posCompleted: true,
             allCompleted: true,
             needsRetelling: true, // triggers story retelling view!
@@ -403,7 +402,6 @@ async function startServer() {
           isCorrect: true,
           pointsAwarded,
           attemptsUsed: currentAttempts,
-          explanation: q.explanation,
           posCompleted: true,
           allCompleted: false,
           score: session.score,
@@ -425,7 +423,6 @@ async function startServer() {
         isCorrect: true,
         pointsAwarded,
         attemptsUsed: currentAttempts,
-        explanation: q.explanation,
         posCompleted: false,
         score: session.score,
       });
@@ -446,7 +443,6 @@ async function startServer() {
       isCorrect: false,
       pointsAwarded: 0,
       attemptsUsed: currentAttempts,
-      explanation: isOutOfAttempts ? q.explanation : undefined,
       posCompleted: false,
       posFailed: isOutOfAttempts,
       failedPosCode: session.failedPosCode,

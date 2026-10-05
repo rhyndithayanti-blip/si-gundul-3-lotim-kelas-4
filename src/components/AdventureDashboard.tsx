@@ -261,10 +261,10 @@ export const AdventureDashboard: React.FC<Props> = ({
                 <span className="p-2 sm:p-2.5 bg-white/20 rounded-2xl text-xl sm:text-2xl shrink-0">🧭</span>
                 <div>
                   <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-amber-200 block">
-                    TUJUAN KE-{currentStation.posNumber} DARI {currentStation.totalPos} &bull; CARI {currentStation.code}
+                    TAHAP {currentStation.posNumber} DARI {currentStation.totalPos} &bull; TUJUAN: {currentStation.code}
                   </span>
                   <h3 className="text-lg sm:text-2xl font-black font-display tracking-wide leading-tight">
-                    {currentLocConfig?.story?.title || currentStation.code}
+                    Misi Detektif: Temukan Lokasi {currentStation.code}
                   </h3>
                 </div>
               </div>
