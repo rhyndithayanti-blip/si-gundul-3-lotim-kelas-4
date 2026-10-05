@@ -107,6 +107,12 @@ export default function App() {
           stored &&
           (stored.status === 'active' || stored.status === 'failed' || stored.status === 'timeout')
         ) {
+          // Auto-clear legacy lock caused by exiting fullscreen
+          if (stored.screenLocked && /layar penuh|fullscreen/i.test(stored.screenLockReason || '')) {
+            stored.screenLocked = false;
+            stored.screenLockReason = undefined;
+            gameService.saveSession(stored);
+          }
           setSession(stored);
           const currentLocId = stored.route[stored.currentPosIndex];
           const locConfig = locs.find((l) => l.id === currentLocId);
@@ -155,20 +161,6 @@ export default function App() {
   // Start new game
   const handleStartGame = async (player: PlayerInfo) => {
     try {
-      // Request fullscreen immediately on user gesture so phone screen locks
-      try {
-        const el = document.documentElement as any;
-        if (!document.fullscreenElement) {
-          if (el.requestFullscreen) {
-            await el.requestFullscreen({ navigationUI: 'hide' });
-          } else if (el.webkitRequestFullscreen) {
-            await el.webkitRequestFullscreen();
-          }
-        }
-      } catch {
-        // ignore if unsupported
-      }
-
       // Clear any previous Pos article locks so new session starts fresh
       ['pos_1', 'pos_2', 'pos_3', 'pos_4', 'pos_5'].forEach((id) => {
         localStorage.removeItem(`sigundul_article_locked_${id}`);
@@ -188,25 +180,14 @@ export default function App() {
 
   // Resume active session
   const handleResumeSession = async () => {
-    try {
-      const el = document.documentElement as any;
-      if (!document.fullscreenElement) {
-        if (el.requestFullscreen) {
-          await el.requestFullscreen({ navigationUI: 'hide' });
-        } else if (el.webkitRequestFullscreen) {
-          await el.webkitRequestFullscreen();
-        }
-      }
-    } catch {
-      // ignore
-    }
     setView('adventure');
   };
 
-  // Trigger screen lock when student leaves app / opens browser / exits fullscreen
+  // Trigger screen lock when student leaves app / opens browser
   const handleLockTriggered = useCallback(
     async (reason: string) => {
       if (!session || session.status !== 'active') return;
+      if (/layar penuh|fullscreen/i.test(reason)) return;
       const updated = await gameService.lockScreen(session.gameId, reason, session);
       setSession(updated);
     },
