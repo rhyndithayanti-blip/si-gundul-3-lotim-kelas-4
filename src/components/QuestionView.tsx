@@ -372,6 +372,7 @@ export const QuestionView: React.FC<Props> = ({
           <div className="min-w-0">
             <div className="text-[10px] sm:text-xs font-black uppercase text-amber-800 tracking-wider leading-tight truncate">
               {stationCode}
+              {stationName ? ` • ${stationName}` : ''}
             </div>
             <div className="text-xs sm:text-sm font-bold text-slate-800 leading-tight">
               Soal {questionIndex + 1} dari {totalQuestions}

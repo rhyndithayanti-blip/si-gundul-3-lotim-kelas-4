@@ -40,12 +40,14 @@ export const ScreenLockGuard: React.FC<Props> = ({
   // Flag to suppress lock when Teacher explicitly unlocks or when QR scanner opens
   const suppressLockRef = useRef(false);
 
-  // Auto-ignore any legacy locks caused by fullscreen exit
-  const isFullscreenLock =
+  // Auto-ignore any locks caused by exiting fullscreen, leaving app, tab switch, or back button
+  const isIgnoredLockReason =
     !!session?.screenLocked &&
-    /layar penuh|fullscreen/i.test(session?.screenLockReason || '');
+    /layar penuh|fullscreen|keluar|pindah|tab|minimize|balik|back|buka|hidden/i.test(
+      session?.screenLockReason || ''
+    );
 
-  const isLocked = !!session?.screenLocked && !isFullscreenLock;
+  const isLocked = !!session?.screenLocked && !isIgnoredLockReason;
   const isFailedOrTimeout = session?.status === 'failed' || session?.status === 'timeout';
 
   // Keep Screen WakeLock active during adventure so phone screen doesn't sleep
@@ -75,28 +77,6 @@ export const ScreenLockGuard: React.FC<Props> = ({
       }
     };
   }, [isActiveAdventure]);
-
-  // Prevent Back button on phone from leaving the app during active adventure
-  useEffect(() => {
-    if (!isActiveAdventure) return;
-
-    window.history.pushState({ sigundulLock: true }, '', window.location.href);
-
-    const handlePopState = () => {
-      window.history.pushState({ sigundulLock: true }, '', window.location.href);
-      if (!isLocked && !isFailedOrTimeout) {
-        sounds.playWrong();
-        onLockTriggered(
-          'Terdeteksi menekan tombol Kembali (Back) untuk keluar dari layar aplikasi saat petualangan berlangsung.'
-        );
-      }
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, [isActiveAdventure, isLocked, isFailedOrTimeout, onLockTriggered]);
 
   // Block Copy, Cut, ContextMenu (Long-press search on mobile Chrome/Safari) & DevTools shortcuts
   useEffect(() => {
@@ -135,27 +115,6 @@ export const ScreenLockGuard: React.FC<Props> = ({
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isActiveAdventure]);
-
-  // Anti-Cheat Detection: Switching tabs / minimizing browser (visibilitychange)
-  useEffect(() => {
-    if (!isActiveAdventure || isFailedOrTimeout) return;
-
-    const handleVisibilityChange = () => {
-      if (suppressLockRef.current) return;
-      if (document.hidden || document.visibilityState === 'hidden') {
-        sounds.playWrong();
-        onLockTriggered(
-          'Terdeteksi keluar dari aplikasi, berpindah tab browser, atau meminimalkan layar HP saat sedang mengerjakan misi pos!'
-        );
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [isActiveAdventure, isFailedOrTimeout, onLockTriggered]);
 
   // Handle Teacher Unlock Submit
   const handleUnlockSubmit = async (e: React.FormEvent) => {

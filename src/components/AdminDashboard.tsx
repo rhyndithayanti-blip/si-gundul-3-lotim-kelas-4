@@ -1227,7 +1227,7 @@ export const AdminDashboard: React.FC<Props> = ({
                   }
                   className="w-full p-2.5 bg-slate-50 border border-amber-300 rounded-xl"
                 />
-                <p className="text-[10px] text-slate-500 mt-0.5">Isi 0 untuk waktu bebas tanpa batasan.</p>
+                <p className="text-[10px] text-slate-500 mt-0.5">Bawaan 0 = Aktif 24 Jam Bebas tanpa batas waktu.</p>
               </div>
 
               <div>

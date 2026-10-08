@@ -101,20 +101,25 @@ export default function App() {
         setLocations(locs);
         setSettings(sets);
 
-        // Check if there is an active or failed (locked) saved game
+        // Check if there is an active or saved game
         const stored = gameService.getStoredSession();
         if (
           stored &&
           (stored.status === 'active' || stored.status === 'failed' || stored.status === 'timeout')
         ) {
-          // Auto-clear legacy lock caused by exiting fullscreen
-          if (stored.screenLocked && /layar penuh|fullscreen/i.test(stored.screenLockReason || '')) {
+          // Auto-clear legacy lock caused by exiting fullscreen or leaving app
+          if (stored.screenLocked) {
             stored.screenLocked = false;
             stored.screenLockReason = undefined;
-            gameService.saveSession(stored);
           }
+          // Kembalikan sesi timeout menjadi active (aplikasi 24 jam bebas tanpa batas waktu)
+          if (stored.status === 'timeout') {
+            stored.status = 'active';
+          }
+          gameService.saveSession(stored);
           setSession(stored);
-          const currentLocId = stored.route[stored.currentPosIndex];
+
+          const currentLocId = stored.route[stored.currentPosIndex] || stored.route[0];
           const locConfig = locs.find((l) => l.id === currentLocId);
 
           setCurrentStation({
@@ -122,11 +127,16 @@ export default function App() {
             totalPos: stored.route.length,
             id: currentLocId,
             code: locConfig?.code || `POS ${stored.currentPosIndex + 1}`,
-            name: sets.hintMode === 'easy' ? locConfig?.name : undefined,
+            name: locConfig?.name,
             hint: locConfig?.hint || '',
             isFinal: locConfig?.isFinal || false,
             story: locConfig?.story,
           });
+
+          // Otomatis lanjutkan petualangan saat membuka aplikasi kembali tanpa reset ke beranda
+          if (stored.status === 'active') {
+            setView('adventure');
+          }
 
           // If QR was already verified for this pos, fetch questions
           const posProg = stored.posProgress[currentLocId];
@@ -183,11 +193,11 @@ export default function App() {
     setView('adventure');
   };
 
-  // Trigger screen lock when student leaves app / opens browser
+  // Trigger screen lock when student leaves app / opens browser (diabaikan jika keluar aplikasi/fullscreen agar tidak mengunci/mereset)
   const handleLockTriggered = useCallback(
     async (reason: string) => {
       if (!session || session.status !== 'active') return;
-      if (/layar penuh|fullscreen/i.test(reason)) return;
+      if (/layar penuh|fullscreen|keluar|pindah|tab|minimize|balik|back|buka|hidden/i.test(reason)) return;
       const updated = await gameService.lockScreen(session.gameId, reason, session);
       setSession(updated);
     },
@@ -409,21 +419,8 @@ export default function App() {
   };
 
   const handleTimeout = useCallback(() => {
-    setIsTimedOut(true);
-    sounds.playWrong();
-    setSession((prev) => {
-      if (!prev) return null;
-      const updated: GameSession = {
-        ...prev,
-        status: 'failed',
-        failedPosCode: currentStation?.code || `POS ${prev.currentPosIndex + 1}`,
-        failedPosName: currentStation?.name,
-        failedReason: 'Waktu petualangan habis sebelum menyelesaikan seluruh pos.',
-      };
-      gameService.saveSession(updated);
-      return updated;
-    });
-  }, [currentStation]);
+    // Aplikasi digunakan 24 jam tanpa batas waktu
+  }, []);
 
   // Reset session ONLY by Teacher in Panel Guru using code "ulangi"
   const handleResetSessionByTeacher = async (code: string) => {
@@ -715,43 +712,6 @@ export default function App() {
         />
       )}
 
-      {/* --- TIMEOUT MODAL --- */}
-      {isTimedOut && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/85 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 text-center border-4 border-rose-500 shadow-2xl space-y-4">
-            <div className="w-16 h-16 mx-auto rounded-3xl bg-rose-100 text-rose-600 flex items-center justify-center text-3xl">
-              ⏰
-            </div>
-            <h3 className="text-2xl font-black font-display text-rose-950">
-              WAKTU PETUALANGAN HABIS
-            </h3>
-            <p className="text-xs text-slate-600 font-medium leading-relaxed">
-              Durasi waktu yang ditentukan oleh guru telah selesai. Skor sementaramu:{' '}
-              <strong className="text-amber-800 font-black">{session?.score || 0} poin</strong>. Untuk mengulang dan mereset aplikasi, <strong>hanya bisa dilakukan oleh Guru pada Panel Guru</strong>.
-            </p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => {
-                  setIsTimedOut(false);
-                  setView('admin');
-                }}
-                className="flex-1 py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-2xl text-xs cursor-pointer"
-              >
-                Buka Panel Guru (Reset)
-              </button>
-              <button
-                onClick={() => {
-                  setIsTimedOut(false);
-                  setView('home');
-                }}
-                className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl text-xs cursor-pointer"
-              >
-                Kembali ke Beranda
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

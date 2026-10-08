@@ -273,19 +273,19 @@ class GameService {
     const locations = await this.getLocations();
     const settings = await this.getSettings();
 
-    // Randomize Pos 1 to Pos 4 per device/group, keeping Pos 5 fixed as the Final Pos
-    const activeLocs = locations.filter(l => l.isActive);
-    const nonFinalLocs = shuffleArray(
-      activeLocs.filter(l => !l.isFinal)
-    );
-    const finalLocs = activeLocs
-      .filter(l => l.isFinal)
-      .sort((a, b) => a.story.chapterNumber - b.story.chapterNumber);
-    const route = [...nonFinalLocs, ...finalLocs].map(l => l.id);
+    // Urutkan Pos secara berurutan sesuai Bab Cerita Kurikulum (Pos 1 -> Pos 2 -> Pos 3 -> Pos 4 -> Pos 5)
+    // agar deskripsi pos selalu sesuai dengan pos yang dituju
+    const activeLocs = locations.filter((l: LocationConfig) => l.isActive);
+    const sortedLocs = activeLocs.sort((a: LocationConfig, b: LocationConfig) => {
+      const chapA = a.story?.chapterNumber || 0;
+      const chapB = b.story?.chapterNumber || 0;
+      return chapA - chapB;
+    });
+    const route = sortedLocs.map((l: LocationConfig) => l.id);
 
     const gameId = `LITERASI-${Date.now().toString().slice(-6)}-${Math.floor(100 + Math.random() * 900)}`;
     const posProgress: GameSession['posProgress'] = {};
-    route.forEach(locId => {
+    route.forEach((locId: string) => {
       posProgress[locId] = {
         locationId: locId,
         qrVerified: false,
@@ -321,7 +321,7 @@ class GameService {
         totalPos: route.length,
         id: route[0],
         code: firstLocConfig?.code || 'POS 1',
-        name: settings.hintMode === 'easy' ? firstLocConfig?.name : undefined,
+        name: firstLocConfig?.name,
         hint: firstLocConfig?.hint || 'Carilah kode QR di pos pertama.',
         isFinal: false,
         story: firstLocConfig?.story,
@@ -536,7 +536,7 @@ class GameService {
             totalPos: currentSession.route.length,
             id: nextLocId,
             code: nextLocConfig?.code,
-            name: settings.hintMode === 'easy' ? nextLocConfig?.name : undefined,
+            name: nextLocConfig?.name,
             hint: nextLocConfig?.hint,
             isFinal: nextLocConfig?.isFinal || false,
             story: nextLocConfig?.story,
@@ -708,8 +708,11 @@ class GameService {
     });
   }
 
-  // Lock screen when student exits app or leaves fullscreen
+  // Lock screen handler (diabaikan jika pengguna keluar aplikasi atau berpindah tab agar tidak mereset sesi)
   async lockScreen(gameId: string, reason: string, currentSession: GameSession): Promise<GameSession> {
+    if (/keluar|layar|pindah|tab|minimize|fullscreen|balik|back|buka|hidden/i.test(reason)) {
+      return currentSession;
+    }
     const updated: GameSession = {
       ...currentSession,
       screenLocked: true,

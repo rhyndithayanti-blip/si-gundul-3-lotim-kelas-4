@@ -56,7 +56,7 @@ export const StudentHome: React.FC<Props> = ({
           </span>
           <span aria-hidden="true">&bull;</span>
           <span className="flex items-center gap-1">
-            <Compass className="w-3.5 h-3.5 text-yellow-300" /> Pos 1-4 Acak + Pos 5 Final
+            <Compass className="w-3.5 h-3.5 text-yellow-300" /> Pos 1–5 Berurutan (Akses 24 Jam)
           </span>
           <span aria-hidden="true">&bull;</span>
           <span className="flex items-center gap-1">

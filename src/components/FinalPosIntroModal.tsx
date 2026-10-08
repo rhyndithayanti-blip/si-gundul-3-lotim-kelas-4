@@ -44,12 +44,21 @@ export const FinalPosIntroModal: React.FC<Props> = ({
         <div className="bg-amber-100/10 border-2 border-yellow-500/40 rounded-2xl p-4 text-left backdrop-blur-xs mb-6">
           <div className="flex items-center gap-2 mb-2 text-yellow-400 font-bold text-xs uppercase tracking-wider">
             <MapPin className="w-4 h-4 text-yellow-400" />
-            <span>Deskripsi Petunjuk Lokasi Pos 5 (Final):</span>
+            <span>
+              Deskripsi Petunjuk Lokasi Pos 5 (Final)
+              {finalLocationName ? ` — ${finalLocationName}` : ''}:
+            </span>
           </div>
 
           <div className="bg-black/30 p-3.5 rounded-xl border border-yellow-500/30 text-amber-100 text-sm font-medium leading-relaxed italic">
             &ldquo;{finalHint}&rdquo;
           </div>
+
+          {finalLocationName && (
+            <p className="text-[11px] text-amber-300 mt-2 text-center">
+              Tujuan: Ruang Kelas 4 ({finalLocationName})
+            </p>
+          )}
         </div>
 
         <button

@@ -167,14 +167,14 @@ async function startServer() {
       return res.status(500).json({ success: false, error: 'Tidak ada pos cerita aktif.' });
     }
 
-    // Randomize Pos 1 to Pos 4 per device/group, keeping Pos 5 fixed as the Final Pos
-    const nonFinalLocs = shuffleArray(
-      activeLocs.filter(l => !l.isFinal)
-    );
-    const finalLocs = activeLocs
-      .filter(l => l.isFinal)
-      .sort((a, b) => a.story.chapterNumber - b.story.chapterNumber);
-    const route = [...nonFinalLocs, ...finalLocs].map(l => l.id);
+    // Urutkan Pos secara berurutan sesuai Bab Cerita Kurikulum (Pos 1 -> Pos 2 -> Pos 3 -> Pos 4 -> Pos 5)
+    // agar deskripsi pos selalu sesuai dengan pos yang dituju
+    const sortedLocs = activeLocs.sort((a, b) => {
+      const chapA = a.story?.chapterNumber || 0;
+      const chapB = b.story?.chapterNumber || 0;
+      return chapA - chapB;
+    });
+    const route = sortedLocs.map(l => l.id);
 
     const gameId = `LITERASI-${Date.now().toString().slice(-6)}-${Math.floor(100 + Math.random() * 900)}`;
 
@@ -218,7 +218,7 @@ async function startServer() {
         totalPos: route.length,
         id: currentLocId,
         code: currentLocConfig?.code || 'POS 1',
-        name: settings.hintMode === 'easy' ? currentLocConfig?.name : undefined,
+        name: currentLocConfig?.name,
         hint: currentLocConfig?.hint || 'Carilah kode QR di pos pertama.',
         isFinal: false,
         story: currentLocConfig?.story,
@@ -252,7 +252,7 @@ async function startServer() {
         totalPos: session.route.length,
         id: currentLocId,
         code: currentLocConfig?.code || `POS ${session.currentPosIndex + 1}`,
-        name: settings.hintMode === 'easy' ? currentLocConfig?.name : undefined,
+        name: currentLocConfig?.name,
         hint: currentLocConfig?.hint,
         isFinal: currentLocConfig?.isFinal || false,
         qrVerified: currentProgress?.qrVerified || false,
@@ -413,7 +413,7 @@ async function startServer() {
             totalPos: session.route.length,
             id: nextLocId,
             code: nextLocConfig?.code,
-            name: settings.hintMode === 'easy' ? nextLocConfig?.name : undefined,
+            name: nextLocConfig?.name,
             hint: nextLocConfig?.hint,
             isFinal: nextLocConfig?.isFinal || false,
             story: nextLocConfig?.story,
